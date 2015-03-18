@@ -1,0 +1,35 @@
+package sg.edu.nus.iss.store;
+
+import java.io.IOException;
+import java.util.*;
+
+public class Application {
+ 
+    
+    private  static ProductManager productManager;
+    private static CategoryManager categoryManager;
+    private static VendorManager vendorManager;
+   
+    public Application(){
+    	productManager = new ProductManager();
+    	categoryManager = new CategoryManager();
+    	vendorManager=new VendorManager();
+    }
+	
+	public static void main(String[] args) throws IOException {
+		Application storekeeper = new Application();
+//		Vendor v = new Vendor("Nancy’s Gifts","Best of the best gifts from Nancy’s");
+//		Category c = new Category("CLO","Clothing");
+//
+//		productManager.addProduct("STA"," a", "a", 45, (float)0, 1, 2, 3);
+//		productManager.addProduct("PIG"," a", "a", 45, (float)0, 1, 2, 3);
+//		categoryManager.addCategory("aaa", "fff");
+//		c.show();
+//		v.show();
+//		productManager.showProducts();
+//		categoryManager.showCategories();
+		productManager.searchProduct("STA/1").show();;
+
+	}
+
+}
