@@ -1,0 +1,34 @@
+package sg.edu.nus.iss.store;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class VendorManager {
+	private ArrayList<Vendor> vendors;
+	
+	public VendorManager(){
+		vendors=new ArrayList<Vendor>();
+	}
+	
+	public Vendor addVendor(String vendorName,String vendorDescription)throws IOException{
+		
+		Vendor v = new Vendor(vendorName,vendorDescription);
+		vendors.add(v);
+		
+		FileWriter w = new FileWriter("/Users/angxiaolu/Documents/workspace/Uss/src/Vendors.dat",true);
+		PrintWriter pr = new PrintWriter(w);
+		pr.write("\r"+v.toString());
+		pr.close();
+		return v;		
+	}
+	
+    public void showVendors () {
+        Iterator<Vendor> i = vendors.iterator ();
+        while (i.hasNext ()) {
+            i.next().show ();
+        }
+    }
+}
