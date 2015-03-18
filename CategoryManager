@@ -1,26 +1,32 @@
 package sg.edu.nus.iss.store;
 
-public class Category {
-	private String categoryCode;
-	private String categoryName;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-	public Category(String categoryCode, String categoryName) {
-		super();
-		this.categoryCode = categoryCode;
-		this.categoryName = categoryName;
+public class CategoryManager {
+	private ArrayList<Category> categories;
+	
+	public CategoryManager(){
+		categories=new ArrayList<Category>();
 	}
 	
-	public String getCategoryCode(){
-		return categoryCode;
+	public Category addCategory(String categoryCode, String categoryName)throws IOException{
+		
+		Category c = new Category(categoryCode, categoryName);
+		categories.add(c);
+		FileWriter w = new FileWriter("/Users/angxiaolu/Documents/workspace/USS/src/Category.dat",true);
+		PrintWriter pr = new PrintWriter(w);
+		pr.write("\r"+c.toString());
+		pr.close();
+		return c;		
 	}
-	public String getCategoryName(){
-		return categoryName;
-	}
-	public String toString(){
-		return(categoryCode+","+categoryName);
-	}
-	public void show(){
-		System.out.println(this.toString());
-	}
-
+    public void showCategories () {
+        Iterator<Category> i = categories.iterator ();
+        while (i.hasNext ()) {
+            i.next().show ();
+        }
+    }
 }
