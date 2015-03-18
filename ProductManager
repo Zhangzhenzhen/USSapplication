@@ -81,9 +81,23 @@ private int categoryNumber;
         }
     }
     
-//	public void modifyProduct(){
-//		
-//	}
-//	
+	public Product searchProduct(String ProductId) throws IOException{
+		FileReader r = new FileReader("/Users/angxiaolu/Documents/workspace/USS/src/Products.dat");
+		BufferedReader br=new BufferedReader(r);
+		String line=null;
+		Product p = null;
+		while((line=br.readLine())!=null){
+			if(line.length()>3){
+				String[] strArray=line.split(",");
+				if(strArray[0].equals(ProductId)){
+							p = new Product(strArray[0],strArray[1],strArray[2],
+							Integer.parseInt(strArray[3]),Float.parseFloat(strArray[4]),Integer.parseInt(strArray[5]),
+							Integer.parseInt(strArray[6]),Integer.parseInt(strArray[7]));
+			}
+			}
+		}
+		br.close();
+		return p;
+	}	
 
 }
