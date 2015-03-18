@@ -1,0 +1,89 @@
+package sg.edu.nus.iss.store;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+public class ProductManager  {
+private ArrayList<Product> products;
+private static int productNumber;
+
+private int categoryNumber;
+	
+	public ProductManager(){
+		products=new ArrayList<Product>();
+	}
+	public int getProductNumber(){
+		return productNumber;
+	}
+	
+	public String createProductId(String productCode) throws IOException{
+		categoryNumber=0;
+		
+		FileReader r = new FileReader("/Users/angxiaolu/Documents/workspace/USS/src/Products.dat");
+		BufferedReader br=new BufferedReader(r);
+		String line=null;
+		String Code=null;
+		while((line=br.readLine())!=null){
+			if(line.length()>3){
+				Code=line.split(",")[0];
+				System.out.println(Code);
+				System.out.println(productCode);
+				if(Code.substring(0,3).equals(productCode)){
+					categoryNumber++;
+			}
+			}
+		}
+		br.close();
+		productNumber=categoryNumber+1;
+		return (productCode+"/"+productNumber);
+	}
+	
+	public Product addProduct(String productCode, String productName,
+			String productDescription, int quantityAvaliable,
+			float productPrice, int barCode, int reorderThreshold, int orderQuantity)throws IOException {
+
+		Product p = new Product(createProductId(productCode),productName,productDescription,
+				quantityAvaliable,productPrice,barCode,reorderThreshold,orderQuantity);
+		products.add(p);
+		FileWriter w = new FileWriter("/Users/angxiaolu/Documents/workspace/USS/src/Products.dat",true);
+		PrintWriter pr = new PrintWriter(w);
+		pr.write("\r"+p.toString());
+		pr.close();
+		return p;
+	}
+	
+
+	public void show(){
+		System.out.println(this.toString());
+	}
+	
+    public void showProducts () throws IOException {
+    	FileReader r = new FileReader("/Users/angxiaolu/Documents/workspace/USS/src/Products.dat");
+    	BufferedReader br = new BufferedReader(r);
+    	String line =null;
+		while((line=br.readLine())!=null){
+			String[] strArray=line.split(",");
+			Product p = new Product(strArray[0],strArray[1],strArray[2],
+					Integer.parseInt(strArray[3]),Float.parseFloat(strArray[4]),Integer.parseInt(strArray[5]),
+					Integer.parseInt(strArray[6]),Integer.parseInt(strArray[7]));
+			products.add(p);
+		}
+		br.close();
+        Iterator<Product> i = products.iterator ();
+        while (i.hasNext ()) {
+            i.next().show ();
+        }
+    }
+    
+//	public void modifyProduct(){
+//		
+//	}
+//	
+
+}
