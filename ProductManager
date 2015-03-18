@@ -87,7 +87,7 @@ private int categoryNumber;
 		String line=null;
 		Product p = null;
 		while((line=br.readLine())!=null){
-			if(line.length()>3){
+			if(line.length()>6){
 				String[] strArray=line.split(",");
 				if(strArray[0].equals(ProductId)){
 							p = new Product(strArray[0],strArray[1],strArray[2],
