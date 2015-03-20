@@ -1,0 +1,35 @@
+package InventoryManagement;
+
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class VendorManager {
+	public VendorManager() {
+
+	}
+
+	public ArrayList<Vendor> ListVendor() {
+		ArrayList<Vendor> ListVendor = new ArrayList<Vendor>();
+		String filename = "D:/Documents and Settings/Administrator/workshop4/Assignment5/src/Vendor.dat";
+		String data;
+		try {
+			BufferedReader Reader = new BufferedReader(new FileReader(filename));
+			while ((data = Reader.readLine()) != null) {
+				// Deal with the line
+				String[] dataTmp = data.split(",");
+				String vendorName = dataTmp[0];
+				String vendorDescription = dataTmp[1];
+				Vendor vendor = new Vendor(vendorName, vendorDescription);
+				ListVendor.add(vendor);
+			}
+			Reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ListVendor;
+	}
+
+
+}
